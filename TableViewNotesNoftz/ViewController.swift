@@ -12,6 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet weak var textFieldOutlet: UITextField!
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
@@ -46,14 +47,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // "tableView" is a local variable (parameter!) -- kinda like "sender" in an action method
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
-        cell.textLabel?.text = cart[indexPath.row]
-        cell.detailTextLabel?.text = "Hi"
+        // "as" casts in swift
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell") as! CrazyCell
+        
+        // Use for stock swift cell (basic cells)
+        //cell.textLabel?.text = cart[indexPath.row]
+        //cell.detailTextLabel?.text = "Hi"
+        
+        cell.labelOutlet1.text = cart[indexPath.row]
+        
+        
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(cart[indexPath.row])
+    }
+    
+   
 
     
+    @IBAction func addAction(_ sender: Any) {
+        var blah = textFieldOutlet.text!
+        cart.append(blah)
+        // reloads the table view with all the new data
+        tableViewOutlet.reloadData()
+        
+    }
     
     
     
